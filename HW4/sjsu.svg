@@ -1,0 +1,103 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox='-10 -10 50 50' version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     onload='onload(evt);'>
+
+  <style type="text/css">
+      .none { fill: none; }
+      .logo { fill: #CFA10A; }
+      .edge { stroke: white; stroke-width: .5; }
+      .test { fill: blue; opacity: .3; }
+      #text { font-size: 2px; }
+  </style>
+
+  <script>
+<![CDATA[
+var svgns = 'http://www.w3.org/2000/svg';
+var shapes;
+var deg;
+var laps = 1;
+var speed = 75;
+
+rotate = function (shape, deg) {
+  shape.setAttributeNS(null, 'transform', 'rotate(' + deg + ')');
+};
+
+explode = function () {
+  if (deg === undefined) { deg = 0; }
+    
+  innerLogo = shapes[1];
+  outerLogo = shapes[0];
+  
+  outerLogo.style.fill = "#E80000";
+  innerLogo.style.fill = "#E80000";
+  
+  innerLogo.style.opacity = "0.3";
+  outerLogo.style.opacity = "0.3";
+  
+  rotate(innerLogo, deg);
+  deg = (deg + 10) % 360;  
+
+  if (laps > 15) {
+    innerLogo.style.opacity = "0.0";
+    outerLogo.style.opacity = "0.0";
+    document.getElementById('text').textContent = "The end! Thanks for watching.";
+  }
+  setTimeout(explode, 75);
+}
+
+rotateAndDoAgain = function () {
+  if (deg === undefined) { deg = 0; }
+  rotate(deg);
+  deg = (deg + 10) % 360;
+  
+  setTimeout(rotateAndDoAgain, 1000);
+}
+
+animate = function (evt) {
+  if (deg === undefined) { deg=0; }
+    
+  outerLogo = shapes[0];
+    
+  if (deg == 0) {
+    laps++;
+  }
+      
+  rotate(outerLogo, deg);
+  deg = (deg + 10) % 360;  
+  
+  if (laps > 3) 
+    speed = 75; 
+  else 
+    speed = 175;
+
+  if (laps > 7) {
+    setTimeout(explode, speed);
+    setTimeout(animate, speed);
+  } else {
+    setTimeout(animate, speed);
+  }
+}
+
+onload = function (evt) {
+  shapes = [document.getElementById('outerlogo'), document.getElementById('logo')];
+      
+  setTimeout(animate, 3000);
+};
+]]>
+  </script>
+
+  <rect id="logo" class='logo' x='-5' y='-5' height='10' width='10'/> 
+	
+  <g id='outerlogo' transform='rotate(45)'>
+    <rect class='logo edge' x='-5' y='-5' height='10' width='10'/>
+    <rect class='none edge' x='-5' y='-2.0710678' height='4.1421356' width='10'/>
+    <rect class='none edge' y='-5' x='-2.0710678' width='4.1421356' height='10'/>
+  </g>
+
+  <text id="text" x="-10" y="10">San Jose State University</text>
+  
+</svg>

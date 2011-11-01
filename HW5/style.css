@@ -18,8 +18,6 @@ body { background: url("images/wrapper.jpg") no-repeat scroll center top #fff; f
 .hoverspan { text-decoration: underline; color: #e01b4c;}
 	.hoverspan:hover { font-size: 20px; color: #ccc; cursor: pointer;}
 
-#login label { display:block; width: 150px; float:left; }
-
 #profile { float:left; width: 200px; }
 #grades { float:left; width: 200px;}
 #pseudo { float:left;}

@@ -18,7 +18,7 @@ if (
     isset($_GET['raw']) 
   ) {
     
-  if (!isset($_GET['raw'])) sleep(4); // To emulate delay
+  if (!isset($_GET['raw'])) sleep(3); // To emulate delay
   $physical_file_code = file_get_contents('./magic.txt');
 
   // Authorize
@@ -88,48 +88,7 @@ if (
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Homework #5</title>
   
-  <style type="text/css">
-    * { margin: 0; padding: 0; }
-    body { background: url("images/wrapper.jpg") no-repeat scroll center top #fff; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; }
-
-    #wrapper { margin: 0 auto; width:940px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25); }
-    #header { margin-top:20px; height:100px; width: 940px; background: #000; }
-    	#header h1 { padding: 30px 0 0 15px; color: #fff; }
-    #content {  height:450px; background: #fff; padding: 10px; }
-    	#content p { margin: 1.12em 0; }
-    #footer { height:50px; width: 940px; background: #000; margin: 0 0 30px 0;}
-    	#footer p { padding: 15px 0 0 15px; color: #fff;}
-
-    .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-
-    #column-1 { position: absolute; width:400px; border: 5px solid #ccc; padding-left: 5px; }
-    #column-2 { position: absolute; left: 650px; width:450px;} 
-    #smallbox { position: absolute; left: 650px; top: 400px; width:400px;} 
-
-    .hoverspan { text-decoration: underline; color: #e01b4c;}
-    	.hoverspan:hover { font-size: 20px; color: #ccc; cursor: pointer;}
-
-    #profile { float:left; width: 200px; }
-    #grades { float:left; width: 200px;}
-    #pseudo { float:left;}
-    #loading { border: 1px solid #000; padding: 5px; text-align: center; margin-bottom: 10px;}
-    #ajax_data { display:none; }
-
-    /* Grid system for 940px */
-    .column { float: left;  }
-    .grid-1 { width: 60px !important; }
-    .grid-2 { width: 140px !important; }
-    .grid-3 { width: 220px !important; }
-    .grid-4 { width: 300px !important; }
-    .grid-5 { width: 380px !important; }
-    .grid-6 { width: 460px !important; }
-    .grid-7 { width: 540px !important; }
-    .grid-8 { width: 620px !important; }
-    .grid-9 { width: 700px !important; }
-    .grid-10 { width: 780px !important; }
-    .grid-11 { width: 860px !important; }
-    .grid-12 { width: 940px !important; }
-  </style>
+  <link rel="stylesheet" href="style.css" type="text/css">
   
   <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
   <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>

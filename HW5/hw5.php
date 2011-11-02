@@ -18,7 +18,7 @@ if (
     isset($_GET['raw']) 
   ) {
     
-  if (!isset($_GET['raw'])) sleep(0); // To emulate delay
+  if (!isset($_GET['raw'])) sleep(4); // To emulate delay
   $physical_file_code = file_get_contents('./magic.txt');
 
   // Authorize

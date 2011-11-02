@@ -18,7 +18,7 @@ if (
     isset($_GET['raw']) 
   ) {
     
-  if (!isset($_GET['raw'])) sleep(4); // To emulate delay
+  if (!isset($_GET['raw'])) sleep(0); // To emulate delay
   $physical_file_code = file_get_contents('./magic.txt');
 
   // Authorize
@@ -31,13 +31,17 @@ if (
   $row = 1;
   $pseudo = array();
   $pseudo_grade_data = array();
-
+  $users = array();
+  
   if (($handle = fopen("grades.csv", "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
     
       // Construct headers
       if ($row == 1) $headers = $data;
     
+      if ( ($row != 1 && substr($data[0], 0, 1) !== "$") )
+        $users[] = $data[0];
+      
       // Construct student record
       if ( ($row != 1 && substr($data[$row], 0, 1) !== "$") && $data[0] == $rand_id)
         $relevant_row = $data;
@@ -60,10 +64,11 @@ if (
   }
 
   // Check if user is found or not
-  if (!$relevant_row) {
-    header("Status: 404 Not Found");
+  if (!in_array($rand_id, $users)) {
+    header("HTTP/1.1 404 Not Found");
     die();
   }
+  
   
   // Construct array for the students grade
   $grade = array();
@@ -96,40 +101,46 @@ if (
   <script type="text/javascript">
   $(document).ready(function() {    
     // Fire away JSON request
-    $.getJSON('hw5.php?code=<?php echo $code; ?>&rand_id=<?php echo $rand_id; ?>', function(data) {      
-      
+    var jqxhr = $.getJSON('hw5.php?code=<?php echo $code; ?>&rand_id=<?php echo $rand_id; ?>', function(data) {
       // Add data to template that we're sure of, ugly way to do it. Should use a templating system
-      // such as mustache.js (https://github.com/janl/mustache.js/)
-      $('#first').html(data.grade.FIRST);
-      $('#last').html(data.grade.LAST);
-      $('#q1').html(data.grade.Q1);
-      $('#q2').html(data.grade.Q2);
-      $('#q3').html(data.grade.Q3);
-      $('#m1').html(data.grade.M1);
-      
-      // Map up and add all the other items we're not sure the format of
-      var items = [];
-      var temp_items = [];
-      
-      $.each(data.pseudo, function(key, val) {
-        $.each(val, function(key, val) {
-          temp_items.push(val);
+        // such as mustache.js (https://github.com/janl/mustache.js/)
+        $('#first').html(data.grade.FIRST);
+        $('#last').html(data.grade.LAST);
+        $('#q1').html(data.grade.Q1);
+        $('#q2').html(data.grade.Q2);
+        $('#q3').html(data.grade.Q3);
+        $('#m1').html(data.grade.M1);
+
+        // Map up and add all the other items we're not sure the format of
+        var items = [];
+        var temp_items = [];
+
+        $.each(data.pseudo, function(key, val) {
+          $.each(val, function(key, val) {
+            temp_items.push(val);
+          });
+
+          items.push('<strong>' + key + '</strong>: ' + temp_items.join(", ") + '<br />');
+
+          // Reset array for pseudo data
+          temp_items = [];
         });
 
-        items.push('<strong>' + key + '</strong>: ' + temp_items.join(", ") + '<br />');
+        $('<ul/>', {
+          'class': 'pseudo-list',
+          html: items.join('')
+        }).appendTo('#pseudo_placeholder');
         
-        // Reset array for pseudo data
-        temp_items = [];
-      });
-
-      $('<ul/>', {
-        'class': 'pseudo-list',
-        html: items.join('')
-      }).appendTo('#pseudo_placeholder');
-        
-      // Hide loading bar
-      $('#loading').hide();
-      $('#ajax_data').show();
+        // Hide loading bar
+        $('#loading').hide();
+        $('#ajax_data').show();  
+    })
+    .error(function(x,y) { 
+      if (x.status == 403) {
+        $('#loading').html('You\'re not authorized to view this record');
+      } else if (x.status == 404) {
+        $('#loading').html('The id you requested does not exist');
+      }
     });
   });
     

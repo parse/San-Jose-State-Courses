@@ -1,0 +1,2 @@
+TRUNCATE users;
+TRUNCATE entries;

@@ -36,9 +36,9 @@ ALTER TABLE likes
   ALTER COLUMN ID 
     SET DEFAULT NEXTVAL('likes_id_seq');
         
-INSERT INTO users (username, password) VALUES ('abc', '123');
-INSERT INTO users (username, password) VALUES ('def', '123');
-INSERT INTO users (username, password) VALUES ('ghi', '123');
+INSERT INTO users (username, password) VALUES ('abc', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+INSERT INTO users (username, password) VALUES ('def', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+INSERT INTO users (username, password) VALUES ('ghi', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
   
 INSERT INTO entries (user_id, title, content, score) VALUES (1, 'First entry', 'Content goes here', 0);
 INSERT INTO entries (user_id, title, content, score) VALUES (1, 'Second entry', 'Content goes here', 0);

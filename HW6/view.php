@@ -11,7 +11,7 @@ require_once('inc/tpl/header.php');
   <ul class="posts">
 
   <?php
-  $result = pg_query($connection, "SELECT * FROM entries ORDER BY created_at LIMIT 10"); 
+  $result = pg_query($connection, "SELECT * FROM entries ORDER BY created_at DESC LIMIT 10"); 
   while ($row = pg_fetch_assoc($result)) : ?>
     <li class="post post_<?php echo $row['id'];?>">
       <h3><?php echo $row['title']; ?></h3>

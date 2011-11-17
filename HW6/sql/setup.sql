@@ -1,6 +1,6 @@
 
 CREATE TABLE users (
-    ID        int CONSTRAINT userkey PRIMARY KEY,
+    ID        serial CONSTRAINT userkey PRIMARY KEY,
     username  varchar(255) NOT NULL,
     password  varchar(255) NOT NULL
 );
@@ -10,7 +10,7 @@ INSERT INTO users (ID, username, password) VALUES (2, 'def', '123');
 INSERT INTO users (ID, username, password) VALUES (3, 'ghi', '123');
 
 CREATE TABLE entries (
-    ID        int CONSTRAINT entrykey PRIMARY KEY,
+    ID        serial CONSTRAINT entrykey PRIMARY KEY,
     user_id   int,
     title     varchar(255) NOT NULL,
     content   text NOT NULL,

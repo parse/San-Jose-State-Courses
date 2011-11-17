@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "\nRemoving tables..."
-psql -U postgres socialdb < sql/destroy.sql
+psql -U abcd socialdb < sql/destroy.sql
 
 echo "[DONE]\n"
 

@@ -1,9 +1,9 @@
 #!/bin/sh
 echo "Creating database socialdb@postgres"
-createdb --username=postgres socialdb
+createdb --username=abcd socialdb
 
 echo "[DONE]\nCreating tables..."
-psql -U postgres socialdb < sql/setup.sql
+psql -U postgres abcd < sql/setup.sql
 
 echo "[DONE]\n"
 

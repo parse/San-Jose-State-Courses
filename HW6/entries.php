@@ -21,19 +21,24 @@ require_once('inc/tpl/header.php');
         <p>
           <small>Posted <?php echo date("Y-m-d H:i", strtotime($row['created_at']) );?> by 
           <?php echo get_username($row['user_id']); ?> 
-          <?php if ( !user_already_liked($_SESSION['user_id'], $row['id']) ) : ?>
-            <a href="like.php?entry_id=<?php echo $row['id'];?>">+1</a>
-          <?php else : ?>
-            <a href="like.php?entry_id=<?php echo $row['id'];?>">-1</a>
-          <?php endif; ?> (Score: <?php echo $row['score'];?>)
-          
-          <?php if ($row['user_id'] == $_SESSION['user_id']) : ?>
-            <a href="edit.php?ID=<?php echo $row['id']; ?>">Edit</a>
-          <?php endif; ?>
           </small> 
         </p>
       </div>
       <?php echo $row['content']; ?>
+      <div class="meta2">
+        <small>
+          Score: <?php echo $row['score'];?> 
+        <?php if ( !user_already_liked($_SESSION['user_id'], $row['id']) ) : ?>
+          <a class="like notliked" href="like.php?entry_id=<?php echo $row['id'];?>">+1</a>
+        <?php else : ?>
+          <a class="like alreadyliked" href="like.php?entry_id=<?php echo $row['id'];?>">-1</a>
+        <?php endif; ?> 
+        
+        <?php if ($row['user_id'] == $_SESSION['user_id']) : ?>
+          <a href="edit.php?ID=<?php echo $row['id']; ?>">Edit entry</a>
+        <?php endif; ?>
+        </small>
+      </div>
     </li>
   <?php endwhile; ?>
   

@@ -48,7 +48,7 @@ require_once('inc/tpl/header.php');
   <?php if ($edit) :?>
     <input type="hidden" name="entry_id" value="<?php echo $row['id'];?>" />
   <?php endif; ?>
-  <input type="submit" value="Post entry" />
+  <input type="submit" value="<?php if ($edit) :?>Edit entry<?php else: ?>Post entry<?php endif; ?>" />
 </form>
 <?php
 require_once('inc/tpl/footer.php');

@@ -1,16 +1,15 @@
+CREATE SEQUENCE users_id_seq;
+CREATE SEQUENCE entries_id_seq;
+CREATE SEQUENCE likes_id_seq;
 
 CREATE TABLE users (
-    ID        serial CONSTRAINT userkey PRIMARY KEY,
+    ID        int UNIQUE,
     username  varchar(255) NOT NULL,
     password  varchar(255) NOT NULL
 );
 
-INSERT INTO users (ID, username, password) VALUES (1, 'abc', '123');
-INSERT INTO users (ID, username, password) VALUES (2, 'def', '123');
-INSERT INTO users (ID, username, password) VALUES (3, 'ghi', '123');
-
 CREATE TABLE entries (
-    ID        serial CONSTRAINT entrykey PRIMARY KEY,
+    ID        int UNIQUE,
     user_id   int,
     title     varchar(255) NOT NULL,
     content   text NOT NULL,
@@ -18,6 +17,30 @@ CREATE TABLE entries (
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
 );
 
-INSERT INTO entries (ID, user_id, title, content, score) VALUES (1, 1, 'oh hai!', 'content goes here', 0);
-INSERT INTO entries (ID, user_id, title, content, score) VALUES (2, 1, 'oh hai2!', 'content goes here', 0);
-INSERT INTO entries (ID, user_id, title, content, score) VALUES (3, 2, 'tjo!', 'content goes here', 0);
+CREATE TABLE likes (
+    ID        int UNIQUE,
+    user_id   int,
+    entry_id  int,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL
+);
+
+ALTER TABLE users 
+  ALTER COLUMN ID 
+    SET DEFAULT NEXTVAL('users_id_seq');
+        
+ALTER TABLE entries 
+  ALTER COLUMN ID 
+    SET DEFAULT NEXTVAL('entries_id_seq');
+
+ALTER TABLE likes 
+  ALTER COLUMN ID 
+    SET DEFAULT NEXTVAL('likes_id_seq');
+        
+INSERT INTO users (username, password) VALUES ('abc', '123');
+INSERT INTO users (username, password) VALUES ('def', '123');
+INSERT INTO users (username, password) VALUES ('ghi', '123');
+  
+INSERT INTO entries (user_id, title, content, score) VALUES (1, 'First entry', 'Content goes here', 0);
+INSERT INTO entries (user_id, title, content, score) VALUES (1, 'Second entry', 'Content goes here', 0);
+INSERT INTO entries (user_id, title, content, score) VALUES (2, 'Third entry', 'Content goes here', 0);
+INSERT INTO entries (user_id, title, content, score) VALUES (3, 'Fourth entry', 'Content goes here', 0);

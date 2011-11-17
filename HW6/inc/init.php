@@ -17,3 +17,16 @@ function get_username ($user_id) {
   else 
     return;
 }
+
+function user_already_liked ($user_id, $entry_id) {
+  global $connection;
+  $result = pg_prepare($connection, "auth_query", 'SELECT * FROM likes WHERE user_id = $1 AND entry_id = $2');
+  $result = pg_execute($connection, "auth_query", array( $user_id, $entry_id ) );
+  $row    = pg_fetch_row($result);
+
+  if ( $row[0] > 0 ) { 
+    return true;
+  } else {
+    return false;
+  }
+}

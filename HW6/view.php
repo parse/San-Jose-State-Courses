@@ -1,7 +1,7 @@
 <?php 
 require_once('inc/init.php');
 
-$title = "Viewing";
+$title = "Home";
 
 require_once('inc/tpl/header.php'); 
 ?>
@@ -17,15 +17,24 @@ require_once('inc/tpl/header.php');
       <h3><?php echo $row['title']; ?></h3>
       <div class="meta">
         <p>
-          <small>Posted <?php echo date("Y-m-d H:i", strtotime($row['created_at']) );?> by 
-          <?php echo get_username($row['user_id']); ?> <a href="#">+1</a>
-          <?php if ($row['user_id'] == $_SESSION['user_id']) : ?>
-            <a href="edit.php?ID=<?php echo $row['id']; ?>">Edit</a>
-          <?php endif; ?>
-          </small> 
+          <small>Posted <?php echo date("Y-m-d H:i", strtotime($row['created_at']) );?> by <?php echo get_username($row['user_id']); ?></small> 
         </p>
       </div>
       <?php echo $row['content']; ?>
+      <div class="meta2">
+        <small>
+          Score: <?php echo $row['score'];?> 
+        <?php if ( !user_already_liked($_SESSION['user_id'], $row['id']) ) : ?>
+          <a class="like notliked" href="like.php?entry_id=<?php echo $row['id'];?>">+1</a>
+        <?php else : ?>
+          <a class="like alreadyliked" href="like.php?entry_id=<?php echo $row['id'];?>">-1</a>
+        <?php endif; ?> 
+        
+        <?php if ($row['user_id'] == $_SESSION['user_id']) : ?>
+          <a href="edit.php?ID=<?php echo $row['id']; ?>">Edit entry</a>
+        <?php endif; ?>
+        </small>
+      </div>
     </li>
   <?php endwhile; ?>
 
@@ -33,7 +42,7 @@ require_once('inc/tpl/header.php');
 </div>
 
 <div class="column grid-6">
-  <h2>My latest posts</h2>
+  <h2>My 3 latest posts</h2>
   <ul class="posts">
 
   <?php 
@@ -43,20 +52,33 @@ require_once('inc/tpl/header.php');
   while ($row = pg_fetch_assoc($result)) : ?>
     <li class="post post_<?php echo $row['id'];?>">
       <h3><?php echo $row['title']; ?></h3>
-      <p>
-        <small>Posted <?php echo date("Y-m-d H:i", strtotime($row['created_at']) );?> by 
-        <?php echo get_username($row['user_id']); ?> <a href="#">+1</a>
-        <?php if ($row['user_id'] == $_SESSION['user_id']) : ?>
-          <a href="edit.php?ID=<?php echo $row['id']; ?>">Edit</a>
-        <?php endif; ?>
-        </small> 
-      </p>
+      <div class="meta">
+        <p>
+          <small>Posted <?php echo date("Y-m-d H:i", strtotime($row['created_at']) );?> by 
+          <?php echo get_username($row['user_id']); ?> 
+          </small> 
+        </p>
+      </div>
       <?php echo $row['content']; ?>
+      <div class="meta2">
+        <small>
+          Score: <?php echo $row['score'];?> 
+        <?php if ( !user_already_liked($_SESSION['user_id'], $row['id']) ) : ?>
+          <a class="like notliked" href="like.php?entry_id=<?php echo $row['id'];?>">+1</a>
+        <?php else : ?>
+          <a class="like alreadyliked" href="like.php?entry_id=<?php echo $row['id'];?>">-1</a>
+        <?php endif; ?> 
+        
+        <?php if ($row['user_id'] == $_SESSION['user_id']) : ?>
+          <a href="edit.php?ID=<?php echo $row['id']; ?>">Edit entry</a>
+        <?php endif; ?>
+        </small>
+      </div>
     </li>
   <?php endwhile; ?>
-
-  </ul>
   
+  </ul>
+  <p><a href="entries.php">More entries</a></p>
 </div>
 
 <?php

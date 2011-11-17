@@ -3,7 +3,7 @@ body { background: url("../images/wrapper.jpg") no-repeat scroll center top #fff
 #wrapper { margin: 0 auto; width:940px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25); }
 #header { position: relative; margin-top:20px; height:100px; width: 940px; background: #000; }
 	#header h1 { padding: 30px 0 0 15px; color: #fff; }
-#content {  height:450px; background: #fff; padding: 10px; }
+#content {  background: #fff; padding: 10px; }
 	#content p { margin: 1.12em 0; }
 #footer { height:50px; width: 940px; background: #000; margin: 0 0 30px 0;}
 	#footer p { padding: 15px 0 0 15px; color: #fff;}
@@ -18,8 +18,13 @@ body { background: url("../images/wrapper.jpg") no-repeat scroll center top #fff
 	.hoverspan:hover { font-size: 20px; color: #ccc; cursor: pointer;}
 
 ul.posts {padding-left:0px;} 
-ul.posts li { list-style: none; position:relative; } 
+ul.posts li { list-style: none; position:relative; width:350px;  } 
 ul.posts li div.meta  { position: absolute; top: 2px; } 
+ul.posts li div.meta2  { padding:0px; margin-top: 10px; height: 25px; display:block; border-top: 1px dotted #000; border-bottom: 1px dotted #000;}
+ul.posts li a.like  { float:right; padding-right: 10px; margin-top: 4px; } 
+ul.posts li a.alreadyliked  { color: red; } 
+ul.posts li a.notliked  { color: green; } 
+
 
 ul#navigation { padding-left: 0px; position: absolute; top: 55px; left: 15px;}
 ul#navigation li { list-style: none; padding-left: 15px; float:left; }

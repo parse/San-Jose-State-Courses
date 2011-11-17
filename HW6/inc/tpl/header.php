@@ -18,6 +18,7 @@
 				<?php if (isset($_SESSION['user_id'])) :?>
 				<ul id="navigation">
 				  <li><a href="view.php">Home</a></li>
+				  <li><a href="entries.php">My Entries</a></li>
 				  <li><a href="edit.php">New entry</a></li>
 				  <li><a href="index.php?logout">Sign out</a></li>
 				</ul>

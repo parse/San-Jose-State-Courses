@@ -59,7 +59,7 @@ require_once('inc/tpl/header.php');
           </small> 
         </p>
       </div>
-      <?php echo $row['content']; ?>
+      <?php echo safe_html($row['content']); ?>
       <div class="meta2">
         <small>
           Score: <?php echo $row['score'];?> 

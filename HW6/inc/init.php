@@ -13,7 +13,7 @@ function get_username ($user_id) {
   $row    = pg_fetch_assoc($result);
   
   if (!empty($row['username']))
-    return $row['username'];
+    return htmlentities($row['username']);
   else 
     return;
 }
@@ -29,4 +29,8 @@ function user_already_liked ($user_id, $entry_id) {
   } else {
     return false;
   }
+}
+
+function safe_html ($text) {
+  return htmlentities($text);
 }

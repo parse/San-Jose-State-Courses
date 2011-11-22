@@ -8,7 +8,7 @@
 require_once('inc/init.php');
 
 if ( isset($_GET['register']) ) {
-  $result = pg_prepare($connection, "auth_query", 'SELECT * FROM users WHERE username = $1');
+  $result = pg_prepare($connection, "auth_query", 'SELECT * FROM profiles WHERE username = $1');
   $result = pg_execute($connection, "auth_query", array( $_POST['username'] ) );
   $row    = pg_fetch_row($result);
   
@@ -16,7 +16,7 @@ if ( isset($_GET['register']) ) {
     header("location: register.php?fail");
   } else {
     $password = sha1($_POST['password']);
-    $result = pg_prepare($connection, "insert_query", "INSERT INTO users (username, password) VALUES ($1, $2)");
+    $result = pg_prepare($connection, "insert_query", "INSERT INTO profiles (username, password) VALUES ($1, $2)");
     $result = pg_execute($connection, "insert_query", array($_POST['username'], $password ) );
     header("location: index.php?register");
   }

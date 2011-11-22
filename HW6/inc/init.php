@@ -8,7 +8,7 @@ if (!$connection) {
 
 function get_username ($user_id) {
   global $connection;
-  $result = pg_prepare($connection, "", 'SELECT * FROM users WHERE ID = $1');
+  $result = pg_prepare($connection, "", 'SELECT * FROM profiles WHERE ID = $1');
   $result = pg_execute($connection, "", array( $user_id ) );
   $row    = pg_fetch_assoc($result);
   
@@ -20,7 +20,7 @@ function get_username ($user_id) {
 
 function user_already_liked ($user_id, $entry_id) {
   global $connection;
-  $result = pg_prepare($connection, "", 'SELECT * FROM likes WHERE user_id = $1 AND entry_id = $2');
+  $result = pg_prepare($connection, "", 'SELECT * FROM plusones WHERE user_id = $1 AND entry_id = $2');
   $result = pg_execute($connection, "", array( $user_id, $entry_id ) );
   $row    = pg_fetch_row($result);
 

@@ -11,7 +11,7 @@ require_once('inc/tpl/header.php');
   <ul class="posts">
 
   <?php
-  $result = pg_query($connection, "SELECT * FROM entries ORDER BY created_at DESC LIMIT 10"); 
+  $result = pg_query($connection, "SELECT * FROM blog ORDER BY created_at DESC LIMIT 10"); 
   while ($row = pg_fetch_assoc($result)) : ?>
     <li class="post post_<?php echo $row['id'];?>">
       <h3><?php echo $row['title']; ?></h3>
@@ -20,7 +20,7 @@ require_once('inc/tpl/header.php');
           <small>Posted <?php echo date("Y-m-d H:i", strtotime($row['created_at']) );?> by <?php echo get_username($row['user_id']); ?></small> 
         </p>
       </div>
-      <?php echo $row['content']; ?>
+      <?php echo $row['textentry']; ?>
       <div class="meta2">
         <small>
           Score: <?php echo $row['score'];?> 
@@ -46,7 +46,7 @@ require_once('inc/tpl/header.php');
   <ul class="posts">
 
   <?php 
-  $result = pg_prepare($connection, "ownentries_query", 'SELECT * FROM entries WHERE user_id = $1 LIMIT 10');
+  $result = pg_prepare($connection, "ownentries_query", 'SELECT * FROM blog WHERE user_id = $1 LIMIT 10');
   $result = pg_execute($connection, "ownentries_query", array( $_SESSION['user_id'] ) );
 
   while ($row = pg_fetch_assoc($result)) : ?>
@@ -59,7 +59,7 @@ require_once('inc/tpl/header.php');
           </small> 
         </p>
       </div>
-      <?php echo safe_html($row['content']); ?>
+      <?php echo safe_html($row['textentry']); ?>
       <div class="meta2">
         <small>
           Score: <?php echo $row['score'];?> 

@@ -11,7 +11,7 @@ require_once('inc/tpl/header.php');
   <ul class="posts">
 
   <?php 
-  $result = pg_prepare($connection, "ownentries_query", 'SELECT * FROM entries WHERE user_id = $1 LIMIT 10');
+  $result = pg_prepare($connection, "ownentries_query", 'SELECT * FROM blog WHERE user_id = $1 LIMIT 10');
   $result = pg_execute($connection, "ownentries_query", array( $_SESSION['user_id'] ) );
 
   while ($row = pg_fetch_assoc($result)) : ?>
@@ -24,7 +24,7 @@ require_once('inc/tpl/header.php');
           </small> 
         </p>
       </div>
-      <?php echo $row['content']; ?>
+      <?php echo $row['textentry']; ?>
       <div class="meta2">
         <small>
           Score: <?php echo $row['score'];?> 

@@ -8,7 +8,7 @@
 require_once('inc/init.php');
 
 if ( isset($_GET['login']) ) {
-  $result = pg_prepare($connection, "auth_query", 'SELECT * FROM users WHERE username = $1 AND password = $2');
+  $result = pg_prepare($connection, "auth_query", 'SELECT * FROM profiles WHERE username = $1 AND password = $2');
   $result = pg_execute($connection, "auth_query", array( $_POST['username'], sha1($_POST['password']) ) );
   $row    = pg_fetch_row($result);
   

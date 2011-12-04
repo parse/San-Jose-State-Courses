@@ -1,0 +1,13 @@
+MoodChat
+~~~~~~~~
+
+Workflow:
+1. User logins with desired username
+2. User joins the channel that keeps track of user and their moods
+3. Online list is updated (keeps listening for joins/drops)
+4. User sends mood message
+  -> The channel is updated with the new mood message
+
+Nothing needs to be done for the setup to work except having access to PHP5 and cURL.
+
+Uses PusherApp and their API for PHP (Pusher-PHP)
